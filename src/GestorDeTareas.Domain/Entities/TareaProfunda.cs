@@ -18,6 +18,11 @@ public class TareaProfunda : Tarea
         string intencion)
         : base(titulo, fechaLimite, prioridad, pilar)
     {
+        CambiarIntencion(intencion);
+    }
+
+    public void CambiarIntencion(string intencion)
+    {
         if (string.IsNullOrWhiteSpace(intencion))
         {
             throw new ArgumentException("La intención de una tarea profunda es obligatoria.");

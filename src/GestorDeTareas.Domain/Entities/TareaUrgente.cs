@@ -13,6 +13,21 @@ public class TareaUrgente : Tarea
     {
     }
 
+    public override void ActualizarDatos(
+        string titulo,
+        DateTime fechaLimite,
+        PrioridadTarea prioridad,
+        EstadoTarea estado,
+        PilarVida pilar)
+    {
+        base.ActualizarDatos(
+            titulo,
+            fechaLimite,
+            PrioridadTarea.Urgente,
+            estado,
+            pilar);
+    }
+
     public override string ObtenerResumen()
     {
         return $"Tarea urgente: {Titulo}. Fecha límite: {FechaLimite:dd/MM/yyyy}. Pilar: {Pilar}.";

@@ -17,15 +17,8 @@ public abstract class Tarea
 
     protected Tarea(string titulo, DateTime fechaLimite, PrioridadTarea prioridad, PilarVida pilar)
     {
-        if (string.IsNullOrWhiteSpace(titulo))
-        {
-            throw new ArgumentException("El título de la tarea es obligatorio.");
-        }
-
-        if (fechaLimite.Date < DateTime.Today)
-        {
-            throw new ArgumentException("La fecha límite no puede ser anterior a hoy.");
-        }
+        ValidarTitulo(titulo);
+        ValidarFechaLimite(fechaLimite);
 
         Id = Guid.NewGuid();
         Titulo = titulo.Trim();
@@ -55,5 +48,38 @@ public abstract class Tarea
         Estado = nuevoEstado;
     }
 
+    public virtual void ActualizarDatos(
+        string titulo,
+        DateTime fechaLimite,
+        PrioridadTarea prioridad,
+        EstadoTarea estado,
+        PilarVida pilar)
+    {
+        ValidarTitulo(titulo);
+        ValidarFechaLimite(fechaLimite);
+
+        Titulo = titulo.Trim();
+        FechaLimite = fechaLimite;
+        Prioridad = prioridad;
+        Estado = estado;
+        Pilar = pilar;
+    }
+
     public abstract string ObtenerResumen();
+
+    private static void ValidarTitulo(string titulo)
+    {
+        if (string.IsNullOrWhiteSpace(titulo))
+        {
+            throw new ArgumentException("El título de la tarea es obligatorio.");
+        }
+    }
+
+    private static void ValidarFechaLimite(DateTime fechaLimite)
+    {
+        if (fechaLimite.Date < DateTime.Today)
+        {
+            throw new ArgumentException("La fecha límite no puede ser anterior a hoy.");
+        }
+    }
 }
