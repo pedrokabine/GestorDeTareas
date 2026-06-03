@@ -1,6 +1,11 @@
+using GestorDeTareas.Application.Interfaces;
+using GestorDeTareas.Application.Services;
+using GestorDeTareas.Infrastructure.Repositories;
+
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
+builder.Services.AddScoped<ITareaService, TareaService>();
+builder.Services.AddSingleton<ITareaRepository, TareaRepositoryEnMemoria>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
