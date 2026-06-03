@@ -1,0 +1,11 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/GestorDeTareas.Api/GestorDeTareas.Api.csproj" />
+    <Project Path="src/GestorDeTareas.Application/GestorDeTareas.Application.csproj" />
+    <Project Path="src/GestorDeTareas.Domain/GestorDeTareas.Domain.csproj" />
+    <Project Path="src/GestorDeTareas.Infrastructure/GestorDeTareas.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/GestorDeTareas.Tests/GestorDeTareas.Tests.csproj" />
+  </Folder>
+</Solution>
