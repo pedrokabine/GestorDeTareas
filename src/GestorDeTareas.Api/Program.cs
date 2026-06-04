@@ -12,7 +12,7 @@ builder.Services.AddDbContext<GestorDeTareasDbContext>(options =>
     options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<ITareaService, TareaService>();
-builder.Services.AddSingleton<ITareaRepository, TareaRepositoryEnMemoria>();
+builder.Services.AddScoped<ITareaRepository, TareaRepository>();
 
 builder.Services.AddControllers();
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
