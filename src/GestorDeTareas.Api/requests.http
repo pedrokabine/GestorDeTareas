@@ -1,6 +1,5 @@
 @baseUrl = http://localhost:5269
-@tareaId = 8bd18254-591e-4655-898e-8f2459892888
-
+@tareaId =5dc11b22-763c-468f-b341-a4d09fdf8377
 ### Obtener tarea por id
 GET {{baseUrl}}/api/tareas/{{tareaId}}
 
