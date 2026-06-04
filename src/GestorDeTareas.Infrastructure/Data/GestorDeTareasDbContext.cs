@@ -12,6 +12,7 @@ public class GestorDeTareasDbContext : DbContext
     }
 
     public DbSet<Tarea> Tareas { get; set; }
+    public DbSet<Usuario> Usuarios { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -50,5 +51,31 @@ public class GestorDeTareasDbContext : DbContext
         modelBuilder.Entity<TareaProfunda>()
             .Property(tarea => tarea.Intencion)
             .HasMaxLength(300);
+
+        modelBuilder.Entity<Usuario>()
+            .HasKey(usuario => usuario.Id);
+
+        modelBuilder.Entity<Usuario>()
+            .Property(usuario => usuario.Nombre)
+            .IsRequired()
+            .HasMaxLength(100);
+
+        modelBuilder.Entity<Usuario>()
+            .Property(usuario => usuario.Email)
+            .IsRequired()
+            .HasMaxLength(150);
+
+        modelBuilder.Entity<Usuario>()
+            .HasIndex(usuario => usuario.Email)
+            .IsUnique();
+
+        modelBuilder.Entity<Usuario>()
+            .Property(usuario => usuario.PasswordHash)
+            .IsRequired()
+            .HasMaxLength(255);
+
+        modelBuilder.Entity<Usuario>()
+            .Property(usuario => usuario.FechaRegistro)
+            .IsRequired();
     }
 }
