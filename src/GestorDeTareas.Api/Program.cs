@@ -1,8 +1,15 @@
 using GestorDeTareas.Application.Interfaces;
 using GestorDeTareas.Application.Services;
 using GestorDeTareas.Infrastructure.Repositories;
+using GestorDeTareas.Infrastructure.Data;
+using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
+
+string? connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+builder.Services.AddDbContext<GestorDeTareasDbContext>(options =>
+    options.UseSqlServer(connectionString));
 
 builder.Services.AddScoped<ITareaService, TareaService>();
 builder.Services.AddSingleton<ITareaRepository, TareaRepositoryEnMemoria>();
