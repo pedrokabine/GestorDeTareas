@@ -75,3 +75,12 @@ Content-Type: application/json
   "tipo": 3,
   "intencion": "Avanzar con calma y constancia"
 }
+### Registrar usuario
+POST {{baseUrl}}/api/auth/registro
+Content-Type: application/json
+
+{
+  "nombre": "Pedro",
+  "email": "pedro@test.com",
+  "password": "123456"
+}
