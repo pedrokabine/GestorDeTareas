@@ -1,0 +1,78 @@
+@baseUrl = http://localhost:5269
+@tareaId = 8bd18254-591e-4655-898e-8f2459892888
+
+### Obtener tarea por id
+GET {{baseUrl}}/api/tareas/{{tareaId}}
+
+### Actualizar tarea
+PUT {{baseUrl}}/api/tareas/{{tareaId}}
+Content-Type: application/json
+
+{
+  "titulo": "Estudiar Angular actualizado",
+  "fechaLimite": "2026-06-15",
+  "prioridad": 3,
+  "estado": 2,
+  "pilar": 2,
+  "intencion": null
+}
+
+### Comprobar tarea actualizada
+GET {{baseUrl}}/api/tareas/{{tareaId}}
+
+### Completar tarea
+PATCH {{baseUrl}}/api/tareas/{{tareaId}}/completar
+
+### Comprobar tarea completada
+GET {{baseUrl}}/api/tareas/{{tareaId}}
+
+### Eliminar tarea
+DELETE {{baseUrl}}/api/tareas/{{tareaId}}
+
+### Comprobar que se ha eliminado
+GET {{baseUrl}}/api/tareas/{{tareaId}}
+
+### Obtener todas las tareas después de eliminar
+GET {{baseUrl}}/api/tareas
+
+### Obtener todas las tareas
+GET {{baseUrl}}/api/tareas
+
+### Crear tarea simple
+POST {{baseUrl}}/api/tareas
+Content-Type: application/json
+
+{
+  "titulo": "Estudiar Angular",
+  "fechaLimite": "2026-06-10",
+  "prioridad": 2,
+  "pilar": 2,
+  "tipo": 1,
+  "intencion": null
+}
+
+### Crear tarea urgente
+POST {{baseUrl}}/api/tareas
+Content-Type: application/json
+
+{
+  "titulo": "Entregar proyecto",
+  "fechaLimite": "2026-06-08",
+  "prioridad": 4,
+  "pilar": 2,
+  "tipo": 2,
+  "intencion": null
+}
+
+### Crear tarea profunda
+POST {{baseUrl}}/api/tareas
+Content-Type: application/json
+
+{
+  "titulo": "Reflexionar sobre el avance del proyecto",
+  "fechaLimite": "2026-06-12",
+  "prioridad": 2,
+  "pilar": 5,
+  "tipo": 3,
+  "intencion": "Avanzar con calma y constancia"
+}
