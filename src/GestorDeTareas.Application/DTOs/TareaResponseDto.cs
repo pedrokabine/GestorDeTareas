@@ -11,6 +11,7 @@ public class TareaResponseDto
     public EstadoTarea Estado { get; set; }
     public PilarVida Pilar { get; set; }
     public TipoTarea Tipo { get; set; }
+    public Guid? UsuarioId { get; set; }
     public string? Intencion { get; set; }
     public string Resumen { get; set; } = string.Empty;
 }

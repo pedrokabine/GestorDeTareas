@@ -1,7 +1,6 @@
 using GestorDeTareas.Application.Interfaces;
 using GestorDeTareas.Domain.Entities;
 using GestorDeTareas.Infrastructure.Data;
-using Microsoft.EntityFrameworkCore;
 
 namespace GestorDeTareas.Infrastructure.Repositories;
 
@@ -14,17 +13,18 @@ public class TareaRepository : ITareaRepository
         _context = context;
     }
 
-    public List<Tarea> ObtenerTodas()
+    public List<Tarea> ObtenerTodas(Guid usuarioId)
     {
         return _context.Tareas
+            .Where(tarea => tarea.UsuarioId == usuarioId)
             .OrderBy(tarea => tarea.FechaLimite)
             .ToList();
     }
 
-    public Tarea? ObtenerPorId(Guid id)
+    public Tarea? ObtenerPorId(Guid id, Guid usuarioId)
     {
         return _context.Tareas
-            .FirstOrDefault(tarea => tarea.Id == id);
+            .FirstOrDefault(tarea => tarea.Id == id && tarea.UsuarioId == usuarioId);
     }
 
     public void Agregar(Tarea tarea)
@@ -39,9 +39,9 @@ public class TareaRepository : ITareaRepository
         _context.SaveChanges();
     }
 
-    public bool Eliminar(Guid id)
+    public bool Eliminar(Guid id, Guid usuarioId)
     {
-        Tarea? tarea = ObtenerPorId(id);
+        Tarea? tarea = ObtenerPorId(id, usuarioId);
 
         if (tarea == null)
         {

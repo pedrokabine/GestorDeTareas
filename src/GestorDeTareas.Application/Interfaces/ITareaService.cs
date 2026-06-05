@@ -4,10 +4,10 @@ namespace GestorDeTareas.Application.Interfaces;
 
 public interface ITareaService
 {
-    List<TareaResponseDto> ObtenerTodas();
-    TareaResponseDto? ObtenerPorId(Guid id);
-    TareaResponseDto Crear(CrearTareaDto crearTareaDto);
-    bool Actualizar(Guid id, ActualizarTareaDto actualizarTareaDto);
-    bool Eliminar(Guid id);
-    bool Completar(Guid id);
+    List<TareaResponseDto> ObtenerTodas(Guid usuarioId);
+    TareaResponseDto? ObtenerPorId(Guid id, Guid usuarioId);
+    TareaResponseDto Crear(CrearTareaDto crearTareaDto, Guid usuarioId);
+    bool Actualizar(Guid id, ActualizarTareaDto actualizarTareaDto, Guid usuarioId);
+    bool Eliminar(Guid id, Guid usuarioId);
+    bool Completar(Guid id, Guid usuarioId);
 }

@@ -7,14 +7,17 @@ public class TareaRepositoryEnMemoria : ITareaRepository
 {
     private readonly List<Tarea> _tareas = new();
 
-    public List<Tarea> ObtenerTodas()
+    public List<Tarea> ObtenerTodas(Guid usuarioId)
     {
-        return _tareas.ToList();
+        return _tareas
+            .Where(tarea => tarea.UsuarioId == usuarioId)
+            .ToList();
     }
 
-    public Tarea? ObtenerPorId(Guid id)
+    public Tarea? ObtenerPorId(Guid id, Guid usuarioId)
     {
-        return _tareas.FirstOrDefault(tarea => tarea.Id == id);
+        return _tareas.FirstOrDefault(tarea =>
+            tarea.Id == id && tarea.UsuarioId == usuarioId);
     }
 
     public void Agregar(Tarea tarea)
@@ -32,9 +35,9 @@ public class TareaRepositoryEnMemoria : ITareaRepository
         }
     }
 
-    public bool Eliminar(Guid id)
+    public bool Eliminar(Guid id, Guid usuarioId)
     {
-        Tarea? tarea = ObtenerPorId(id);
+        Tarea? tarea = ObtenerPorId(id, usuarioId);
 
         if (tarea == null)
         {

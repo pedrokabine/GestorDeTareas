@@ -52,6 +52,12 @@ public class GestorDeTareasDbContext : DbContext
             .Property(tarea => tarea.Intencion)
             .HasMaxLength(300);
 
+        modelBuilder.Entity<Tarea>()
+            .HasOne(tarea => tarea.Usuario)
+            .WithMany()
+            .HasForeignKey(tarea => tarea.UsuarioId)
+            .OnDelete(DeleteBehavior.Cascade);
+
         modelBuilder.Entity<Usuario>()
             .HasKey(usuario => usuario.Id);
 

@@ -14,16 +14,16 @@ public class TareaService : ITareaService
         _tareaRepository = tareaRepository;
     }
 
-    public List<TareaResponseDto> ObtenerTodas()
+    public List<TareaResponseDto> ObtenerTodas(Guid usuarioId)
     {
-        return _tareaRepository.ObtenerTodas()
+        return _tareaRepository.ObtenerTodas(usuarioId)
             .Select(ConvertirADto)
             .ToList();
     }
 
-    public TareaResponseDto? ObtenerPorId(Guid id)
+    public TareaResponseDto? ObtenerPorId(Guid id, Guid usuarioId)
     {
-        Tarea? tarea = _tareaRepository.ObtenerPorId(id);
+        Tarea? tarea = _tareaRepository.ObtenerPorId(id, usuarioId);
 
         if (tarea == null)
         {
@@ -33,18 +33,20 @@ public class TareaService : ITareaService
         return ConvertirADto(tarea);
     }
 
-    public TareaResponseDto Crear(CrearTareaDto crearTareaDto)
+    public TareaResponseDto Crear(CrearTareaDto crearTareaDto, Guid usuarioId)
     {
         Tarea tarea = CrearTareaDesdeDto(crearTareaDto);
+
+        tarea.AsignarUsuario(usuarioId);
 
         _tareaRepository.Agregar(tarea);
 
         return ConvertirADto(tarea);
     }
 
-    public bool Actualizar(Guid id, ActualizarTareaDto actualizarTareaDto)
+    public bool Actualizar(Guid id, ActualizarTareaDto actualizarTareaDto, Guid usuarioId)
     {
-        Tarea? tarea = _tareaRepository.ObtenerPorId(id);
+        Tarea? tarea = _tareaRepository.ObtenerPorId(id, usuarioId);
 
         if (tarea == null)
         {
@@ -68,14 +70,14 @@ public class TareaService : ITareaService
         return true;
     }
 
-    public bool Eliminar(Guid id)
+    public bool Eliminar(Guid id, Guid usuarioId)
     {
-        return _tareaRepository.Eliminar(id);
+        return _tareaRepository.Eliminar(id, usuarioId);
     }
 
-    public bool Completar(Guid id)
+    public bool Completar(Guid id, Guid usuarioId)
     {
-        Tarea? tarea = _tareaRepository.ObtenerPorId(id);
+        Tarea? tarea = _tareaRepository.ObtenerPorId(id, usuarioId);
 
         if (tarea == null)
         {
@@ -126,6 +128,7 @@ public class TareaService : ITareaService
             Estado = tarea.Estado,
             Pilar = tarea.Pilar,
             Tipo = ObtenerTipoTarea(tarea),
+            UsuarioId = tarea.UsuarioId,
             Intencion = tarea is TareaProfunda tareaProfunda ? tareaProfunda.Intencion : null,
             Resumen = tarea.ObtenerResumen()
         };

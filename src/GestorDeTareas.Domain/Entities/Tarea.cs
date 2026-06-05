@@ -10,6 +10,8 @@ public abstract class Tarea
     public PrioridadTarea Prioridad { get; protected set; }
     public EstadoTarea Estado { get; protected set; }
     public PilarVida Pilar { get; protected set; }
+    public Guid? UsuarioId { get; private set; }
+    public Usuario? Usuario { get; private set; }
 
     protected Tarea()
     {
@@ -63,6 +65,16 @@ public abstract class Tarea
         Prioridad = prioridad;
         Estado = estado;
         Pilar = pilar;
+    }
+
+    public void AsignarUsuario(Guid usuarioId)
+    {
+        if (usuarioId == Guid.Empty)
+        {
+            throw new ArgumentException("El usuario de la tarea no es válido.");
+        }
+
+        UsuarioId = usuarioId;
     }
 
     public abstract string ObtenerResumen();

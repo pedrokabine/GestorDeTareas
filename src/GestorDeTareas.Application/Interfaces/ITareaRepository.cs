@@ -4,9 +4,9 @@ namespace GestorDeTareas.Application.Interfaces;
 
 public interface ITareaRepository
 {
-    List<Tarea> ObtenerTodas();
-    Tarea? ObtenerPorId(Guid id);
+    List<Tarea> ObtenerTodas(Guid usuarioId);
+    Tarea? ObtenerPorId(Guid id, Guid usuarioId);
     void Agregar(Tarea tarea);
     void Actualizar(Tarea tarea);
-    bool Eliminar(Guid id);
+    bool Eliminar(Guid id, Guid usuarioId);
 }
