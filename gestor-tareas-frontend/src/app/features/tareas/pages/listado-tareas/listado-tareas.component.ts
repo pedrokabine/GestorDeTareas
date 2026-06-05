@@ -281,15 +281,5 @@ export class ListadoTareasComponent implements OnInit {
     return TipoTarea[tipo];
   }
 
-  obtenerResumen(tarea: Tarea): string {
-  if (tarea.tipo === TipoTarea.Profunda) {
-    return `Tarea profunda: ${tarea.titulo}. Intención: ${tarea.intencion}. Pilar: ${this.obtenerPilar(tarea.pilar)}.`;
-  }
-
-  if (tarea.tipo === TipoTarea.Urgente) {
-    return `Tarea urgente: ${tarea.titulo}. Fecha límite: ${new Date(tarea.fechaLimite).toLocaleDateString('es-ES')}. Pilar: ${this.obtenerPilar(tarea.pilar)}.`;
-  }
-
-  return `Tarea simple: ${tarea.titulo}. Prioridad: ${this.obtenerPrioridad(tarea.prioridad)}. Pilar: ${this.obtenerPilar(tarea.pilar)}.`;
-}
+  
 }

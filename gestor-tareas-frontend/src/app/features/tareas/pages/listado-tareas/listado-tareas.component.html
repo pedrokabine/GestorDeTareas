@@ -83,32 +83,39 @@
   </div>
 
   <div class="lista-tareas" *ngIf="!cargando && tareas.length > 0">
-    <article class="tarea" *ngFor="let tarea of tareas">
-      <h2>{{ tarea.titulo }}</h2>
+   <article class="tarea" *ngFor="let tarea of tareas">
+  <div class="tarea-cabecera">
+    <h2>{{ tarea.titulo }}</h2>
 
-      <p>{{ obtenerResumen(tarea) }}</p>
+    <div class="badges">
+      <span class="badge">{{ obtenerTipo(tarea.tipo) }}</span>
+      <span class="badge">{{ obtenerEstado(tarea.estado) }}</span>
+      <span class="badge prioridad">{{ obtenerPrioridad(tarea.prioridad) }}</span>
+    </div>
+  </div>
 
-      <ul>
-        <li><strong>Fecha límite:</strong> {{ tarea.fechaLimite | date:'dd/MM/yyyy' }}</li>
-        <li><strong>Estado:</strong> {{ obtenerEstado(tarea.estado) }}</li>
-        <li><strong>Prioridad:</strong> {{ obtenerPrioridad(tarea.prioridad) }}</li>
-        <li><strong>Pilar:</strong> {{ obtenerPilar(tarea.pilar) }}</li>
-        <li><strong>Tipo:</strong> {{ obtenerTipo(tarea.tipo) }}</li>
-      </ul>
+  <p class="intencion" *ngIf="tarea.intencion">
+    <strong>Intención:</strong> {{ tarea.intencion }}
+  </p>
 
-      <div class="acciones">
-        <button type="button" (click)="iniciarEdicion(tarea)">
-          Editar
-        </button>
+  <div class="detalle-tarea">
+    <p><strong>Fecha límite:</strong> {{ tarea.fechaLimite | date:'dd/MM/yyyy' }}</p>
+    <p><strong>Pilar:</strong> {{ obtenerPilar(tarea.pilar) }}</p>
+  </div>
 
-        <button type="button" (click)="completarTarea(tarea.id)">
-          Completar
-        </button>
+  <div class="acciones">
+    <button type="button" (click)="iniciarEdicion(tarea)">
+      Editar
+    </button>
 
-        <button type="button" class="eliminar" (click)="eliminarTarea(tarea.id)">
-          Eliminar
-        </button>
-      </div>
-    </article>
+    <button type="button" (click)="completarTarea(tarea.id)">
+      Completar
+    </button>
+
+    <button type="button" class="eliminar" (click)="eliminarTarea(tarea.id)">
+      Eliminar
+    </button>
+  </div>
+</article>
   </div>
 </div>
