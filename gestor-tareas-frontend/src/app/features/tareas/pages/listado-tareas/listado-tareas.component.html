@@ -1,0 +1,44 @@
+<div class="contenedor">
+  <header class="cabecera">
+    <div>
+      <h1>Mis tareas</h1>
+      <p>Listado de tareas asociadas al usuario autenticado.</p>
+    </div>
+
+    <button type="button" (click)="cerrarSesion()">Cerrar sesión</button>
+  </header>
+
+  <p *ngIf="cargando">Cargando tareas...</p>
+
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <div class="sin-tareas" *ngIf="!cargando && tareas.length === 0">
+    <p>No tienes tareas todavía.</p>
+  </div>
+
+  <div class="lista-tareas" *ngIf="!cargando && tareas.length > 0">
+    <article class="tarea" *ngFor="let tarea of tareas">
+      <h2>{{ tarea.titulo }}</h2>
+
+      <p>{{ tarea.resumen }}</p>
+
+      <ul>
+        <li><strong>Fecha límite:</strong> {{ tarea.fechaLimite | date:'dd/MM/yyyy' }}</li>
+        <li><strong>Estado:</strong> {{ obtenerEstado(tarea.estado) }}</li>
+        <li><strong>Prioridad:</strong> {{ obtenerPrioridad(tarea.prioridad) }}</li>
+        <li><strong>Pilar:</strong> {{ obtenerPilar(tarea.pilar) }}</li>
+        <li><strong>Tipo:</strong> {{ obtenerTipo(tarea.tipo) }}</li>
+      </ul>
+
+      <div class="acciones">
+        <button type="button" (click)="completarTarea(tarea.id)">
+          Completar
+        </button>
+
+        <button type="button" class="eliminar" (click)="eliminarTarea(tarea.id)">
+          Eliminar
+        </button>
+      </div>
+    </article>
+  </div>
+</div>

@@ -4,6 +4,7 @@ import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { AuthService } from '../../services/auth.service';
 import { LoginUsuarioDto } from '../../models/login-usuario.dto';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +21,8 @@ export class LoginComponent {
 
   constructor(
     private formBuilder: FormBuilder,
-    private authService: AuthService
+    private authService: AuthService,
+    private router: Router
   ) {
     this.loginForm = this.formBuilder.group({
       email: ['', [Validators.required, Validators.email]],
@@ -46,6 +48,7 @@ export class LoginComponent {
       next: (respuesta) => {
         this.authService.guardarToken(respuesta.token);
         this.mensaje = `Sesión iniciada correctamente. Bienvenido, ${respuesta.nombre}.`;
+        this.router.navigate(['/tareas']);
       },
       error: () => {
         this.error = 'Email o contraseña incorrectos.';
