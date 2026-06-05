@@ -1,0 +1,32 @@
+<div class="registro-container">
+  <h1>Crear cuenta</h1>
+  <p>Regístrate para empezar a gestionar tus tareas.</p>
+
+  <form [formGroup]="registroForm" (ngSubmit)="registrar()">
+    <div class="campo">
+      <label for="nombre">Nombre</label>
+      <input id="nombre" type="text" formControlName="nombre" />
+    </div>
+
+    <div class="campo">
+      <label for="email">Email</label>
+      <input id="email" type="email" formControlName="email" />
+    </div>
+
+    <div class="campo">
+      <label for="password">Contraseña</label>
+      <input id="password" type="password" formControlName="password" />
+      <small>Mínimo 6 caracteres.</small>
+    </div>
+
+    <button type="submit">Registrarme</button>
+  </form>
+
+  <p class="mensaje" *ngIf="mensaje">{{ mensaje }}</p>
+  <p class="error" *ngIf="error">{{ error }}</p>
+
+  <p class="enlace-login">
+    ¿Ya tienes cuenta?
+    <a routerLink="/login">Inicia sesión</a>
+  </p>
+</div>
