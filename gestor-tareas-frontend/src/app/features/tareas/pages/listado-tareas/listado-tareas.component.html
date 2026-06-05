@@ -9,9 +9,10 @@
   </header>
 
   <section class="formulario">
-    <h2>Crear nueva tarea</h2>
+    <h2 *ngIf="tareaEditandoId === null">Crear nueva tarea</h2>
+    <h2 *ngIf="tareaEditandoId !== null">Editar tarea</h2>
 
-    <form [formGroup]="tareaForm" (ngSubmit)="crearTarea()">
+    <form [formGroup]="tareaForm" (ngSubmit)="guardarTarea()">
       <div class="campo">
         <label for="titulo">Título</label>
         <input id="titulo" type="text" formControlName="titulo" />
@@ -47,6 +48,7 @@
             {{ tipo.texto }}
           </option>
         </select>
+        <small>El tipo se usa principalmente al crear la tarea.</small>
       </div>
 
       <div class="campo">
@@ -55,7 +57,19 @@
         <small>Solo es obligatoria si la tarea es profunda.</small>
       </div>
 
-      <button type="submit">Crear tarea</button>
+      <div class="acciones-formulario">
+        <button type="submit" *ngIf="tareaEditandoId === null">
+          Crear tarea
+        </button>
+
+        <button type="submit" *ngIf="tareaEditandoId !== null">
+          Guardar cambios
+        </button>
+
+        <button type="button" *ngIf="tareaEditandoId !== null" (click)="cancelarEdicion()">
+          Cancelar
+        </button>
+      </div>
     </form>
   </section>
 
@@ -72,7 +86,7 @@
     <article class="tarea" *ngFor="let tarea of tareas">
       <h2>{{ tarea.titulo }}</h2>
 
-      <p>{{ tarea.resumen }}</p>
+      <p>{{ obtenerResumen(tarea) }}</p>
 
       <ul>
         <li><strong>Fecha límite:</strong> {{ tarea.fechaLimite | date:'dd/MM/yyyy' }}</li>
@@ -83,6 +97,10 @@
       </ul>
 
       <div class="acciones">
+        <button type="button" (click)="iniciarEdicion(tarea)">
+          Editar
+        </button>
+
         <button type="button" (click)="completarTarea(tarea.id)">
           Completar
         </button>

@@ -89,3 +89,9 @@ button {
   padding: 24px;
   text-align: center;
 }
+
+.acciones-formulario {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
