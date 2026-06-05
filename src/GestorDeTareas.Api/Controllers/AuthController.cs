@@ -36,4 +36,19 @@ public class AuthController : ControllerBase
             return BadRequest(ex.Message);
         }
     }
+
+    [HttpPost("login")]
+    public ActionResult<AuthResponseDto> Login(LoginUsuarioDto loginUsuarioDto)
+    {
+        try
+        {
+            AuthResponseDto respuesta = _authService.Login(loginUsuarioDto);
+
+            return Ok(respuesta);
+        }
+        catch (InvalidOperationException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+    }
 }

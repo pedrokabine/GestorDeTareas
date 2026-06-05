@@ -84,3 +84,12 @@ Content-Type: application/json
   "email": "pedro@test.com",
   "password": "123456"
 }
+
+### Login usuario
+POST {{baseUrl}}/api/auth/login
+Content-Type: application/json
+
+{
+  "email": "pedro@test.com",
+  "password": "123456"
+}

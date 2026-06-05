@@ -7,10 +7,12 @@ namespace GestorDeTareas.Application.Services;
 public class AuthService : IAuthService
 {
     private readonly IUsuarioRepository _usuarioRepository;
+    private readonly ITokenService _tokenService;
 
-    public AuthService(IUsuarioRepository usuarioRepository)
+    public AuthService(IUsuarioRepository usuarioRepository, ITokenService tokenService)
     {
         _usuarioRepository = usuarioRepository;
+        _tokenService = tokenService;
     }
 
     public UsuarioResponseDto Registrar(RegistroUsuarioDto registroUsuarioDto)
@@ -44,6 +46,35 @@ public class AuthService : IAuthService
             Id = usuario.Id,
             Nombre = usuario.Nombre,
             Email = usuario.Email
+        };
+    }
+
+    public AuthResponseDto Login(LoginUsuarioDto loginUsuarioDto)
+    {
+        Usuario? usuario = _usuarioRepository.ObtenerPorEmail(loginUsuarioDto.Email);
+
+        if (usuario == null)
+        {
+            throw new InvalidOperationException("Email o contraseña incorrectos.");
+        }
+
+        bool passwordCorrecta = BCrypt.Net.BCrypt.Verify(
+            loginUsuarioDto.Password,
+            usuario.PasswordHash);
+
+        if (!passwordCorrecta)
+        {
+            throw new InvalidOperationException("Email o contraseña incorrectos.");
+        }
+
+        string token = _tokenService.GenerarToken(usuario);
+
+        return new AuthResponseDto
+        {
+            UsuarioId = usuario.Id,
+            Nombre = usuario.Nombre,
+            Email = usuario.Email,
+            Token = token
         };
     }
 }
