@@ -8,9 +8,61 @@
     <button type="button" (click)="cerrarSesion()">Cerrar sesión</button>
   </header>
 
-  <p *ngIf="cargando">Cargando tareas...</p>
+  <section class="formulario">
+    <h2>Crear nueva tarea</h2>
 
+    <form [formGroup]="tareaForm" (ngSubmit)="crearTarea()">
+      <div class="campo">
+        <label for="titulo">Título</label>
+        <input id="titulo" type="text" formControlName="titulo" />
+      </div>
+
+      <div class="campo">
+        <label for="fechaLimite">Fecha límite</label>
+        <input id="fechaLimite" type="date" formControlName="fechaLimite" />
+      </div>
+
+      <div class="campo">
+        <label for="prioridad">Prioridad</label>
+        <select id="prioridad" formControlName="prioridad">
+          <option *ngFor="let prioridad of prioridades" [value]="prioridad.valor">
+            {{ prioridad.texto }}
+          </option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label for="pilar">Pilar</label>
+        <select id="pilar" formControlName="pilar">
+          <option *ngFor="let pilar of pilares" [value]="pilar.valor">
+            {{ pilar.texto }}
+          </option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label for="tipo">Tipo de tarea</label>
+        <select id="tipo" formControlName="tipo">
+          <option *ngFor="let tipo of tipos" [value]="tipo.valor">
+            {{ tipo.texto }}
+          </option>
+        </select>
+      </div>
+
+      <div class="campo">
+        <label for="intencion">Intención</label>
+        <input id="intencion" type="text" formControlName="intencion" />
+        <small>Solo es obligatoria si la tarea es profunda.</small>
+      </div>
+
+      <button type="submit">Crear tarea</button>
+    </form>
+  </section>
+
+  <p class="mensaje" *ngIf="mensaje">{{ mensaje }}</p>
   <p class="error" *ngIf="error">{{ error }}</p>
+
+  <p *ngIf="cargando">Cargando tareas...</p>
 
   <div class="sin-tareas" *ngIf="!cargando && tareas.length === 0">
     <p>No tienes tareas todavía.</p>

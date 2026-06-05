@@ -12,6 +12,36 @@
   margin-bottom: 24px;
 }
 
+.formulario {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+
+.campo {
+  margin-bottom: 12px;
+}
+
+label {
+  display: block;
+  margin-bottom: 4px;
+  font-weight: bold;
+}
+
+input,
+select {
+  width: 100%;
+  padding: 8px;
+  box-sizing: border-box;
+}
+
+small {
+  display: block;
+  margin-top: 4px;
+  color: #666;
+}
+
 .lista-tareas {
   display: grid;
   gap: 16px;
@@ -48,6 +78,10 @@ button {
 
 .error {
   color: red;
+}
+
+.mensaje {
+  color: green;
 }
 
 .sin-tareas {
